@@ -1,0 +1,302 @@
+.container {
+  color: var(--geist-foreground);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 175px;
+  font-family: var(--geist-sans);
+
+  &[disabled] {
+    cursor: not-allowed;
+  }
+}
+
+.imageContainer {
+  --border-color: var(--accents-2);
+  --border-width: 16px;
+  --mask: polygon(
+    92.32051% 40%,
+    93.79385% 43.1596%,
+    94.69616% 46.52704%,
+    95% 50%,
+    94.69616% 53.47296%,
+    93.79385% 56.8404%,
+    92.32051% 60%,
+    79.82051% 81.65064%,
+    77.82089% 84.50639%,
+    75.35575% 86.97152%,
+    72.5% 88.97114%,
+    69.3404% 90.44449%,
+    65.97296% 91.34679%,
+    62.5% 91.65064%,
+    37.5% 91.65064%,
+    34.02704% 91.34679%,
+    30.6596% 90.44449%,
+    27.5% 88.97114%,
+    24.64425% 86.97152%,
+    22.17911% 84.50639%,
+    20.17949% 81.65064%,
+    7.67949% 60%,
+    6.20615% 56.8404%,
+    5.30384% 53.47296%,
+    5% 50%,
+    5.30384% 46.52704%,
+    6.20615% 43.1596%,
+    7.67949% 40%,
+    20.17949% 18.34936%,
+    22.17911% 15.49361%,
+    24.64425% 13.02848%,
+    27.5% 11.02886%,
+    30.6596% 9.55551%,
+    34.02704% 8.65321%,
+    37.5% 8.34936%,
+    62.5% 8.34936%,
+    65.97296% 8.65321%,
+    69.3404% 9.55551%,
+    72.5% 11.02886%,
+    75.35575% 13.02848%,
+    77.82089% 15.49361%,
+    79.82051% 18.34936%
+  );
+
+  margin-bottom: 4px;
+  position: relative;
+  width: var(--width-prop);
+  height: var(--height-prop);
+  background: linear-gradient(0deg, var(--accents-2), var(--accents-1));
+  /* clip-path: var(--mask); */
+  box-shadow: var(--shadow-medium);
+  transition: transform 0.5s ease, box-shadow 0.2s ease;
+  will-change: transform, filter;
+  z-index: 10;
+  transform-origin: center;
+  border-radius: 8px;
+  overflow: hidden;
+
+  .image {
+    border-radius: 6px;
+    position: absolute;
+    top: calc(var(--border-width) / 2);
+    left: calc(var(--border-width) / 2);
+    height: calc(var(--height-prop) - var(--border-width));
+    width: calc(var(--width-prop) - var(--border-width));
+    /* clip-path: var(--mask); */
+  }
+
+  --color1: #efb2fb;
+  --color2: #acc6f8;
+
+  transition: none;
+  animation: holoCard 12s ease 0s infinite;
+  &:before {
+    transition: none;
+    animation: holoGradient 12s ease 0s infinite;
+  }
+  &:after {
+    transition: none;
+    animation: holoSparkle 12s ease 0s infinite;
+  }
+
+  &:before {
+    background-position: var(--gradient-position, 50% 50%);
+    background-size: 300% 300%;
+    background-image: linear-gradient(
+      115deg,
+      transparent 0%,
+      var(--color1) 25%,
+      transparent 47%,
+      transparent 53%,
+      var(--color2) 75%,
+      transparent 100%
+    );
+    opacity: 0.5;
+    filter: brightness(0.5) contrast(1);
+    z-index: 1;
+  }
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    mix-blend-mode: color-dodge;
+    transition: all 0.33s ease;
+  }
+
+  &:after {
+    opacity: 1;
+    background-image: url("https://assets.codepen.io/13471/sparkles.gif"),
+      url(https://assets.codepen.io/13471/holo.png),
+      linear-gradient(
+        125deg,
+        #ff008450 15%,
+        #fca40040 30%,
+        #ffff0030 40%,
+        #00ff8a20 60%,
+        #00cfff40 70%,
+        #cc4cfa50 85%
+      );
+    background-position: var(--sparkles-position, 50% 50%);
+    background-size: 160%;
+    background-blend-mode: overlay;
+    z-index: 2;
+    filter: brightness(1) contrast(1);
+    transition: all 0.33s ease;
+    mix-blend-mode: color-dodge;
+    opacity: var(--sparkles-opacity, 0.75);
+  }
+
+  &:hover {
+    animation: none;
+    transition: box-shadow 0.1s ease-out, transform 0.5s ease;
+
+    &:after {
+      filter: brightness(1) contrast(1);
+      opacity: 1;
+      animation: none;
+      transition: none;
+    }
+
+    &:before {
+      animation: none;
+      background-image: linear-gradient(
+        110deg,
+        transparent 25%,
+        var(--color1) 48%,
+        var(--color2) 52%,
+        transparent 75%
+      );
+      background-position: 50% 50%;
+      background-size: 250% 250%;
+      opacity: 0.4;
+      filter: brightness(0.66) contrast(1.33);
+      transition: none;
+    }
+  }
+}
+
+.imageWrapper {
+  filter: drop-shadow(rgba(122, 122, 143, 0.15) 0.5px 1px 1px)
+    drop-shadow(rgba(122, 122, 143, 0.15) 1px 2px 2px)
+    drop-shadow(rgba(122, 122, 143, 0.15) 2px 4px 4px)
+    drop-shadow(rgba(122, 122, 143, 0.15) 4px 8px 8px)
+    drop-shadow(rgba(122, 122, 143, 0.15) 8px 16px 16px);
+}
+
+@keyframes holoSparkle {
+  0%,
+  100% {
+    opacity: 0.5;
+    background-position: 50% 50%;
+    filter: brightness(1.2) contrast(1.25);
+  }
+  5%,
+  8% {
+    opacity: 0.75;
+    background-position: 40% 40%;
+    filter: brightness(0.8) contrast(1.2);
+  }
+  13%,
+  16% {
+    opacity: 0.25;
+    background-position: 50% 50%;
+    filter: brightness(1.2) contrast(0.8);
+  }
+  35%,
+  38% {
+    opacity: 0.75;
+    background-position: 60% 60%;
+    filter: brightness(1) contrast(1);
+  }
+  55% {
+    opacity: 0.1;
+    background-position: 45% 45%;
+    filter: brightness(1.2) contrast(1.25);
+  }
+}
+
+@keyframes holoGradient {
+  0%,
+  100% {
+    opacity: 0.1;
+    background-position: 50% 50%;
+    filter: brightness(0.5) contrast(1);
+  }
+  5%,
+  9% {
+    background-position: 100% 100%;
+    opacity: 0.2;
+    filter: brightness(0.75) contrast(1.25);
+  }
+  13%,
+  17% {
+    background-position: 0% 0%;
+    opacity: 0.48;
+  }
+  35%,
+  39% {
+    background-position: 100% 100%;
+    opacity: 0.4;
+    filter: brightness(0.5) contrast(1);
+  }
+  55% {
+    background-position: 0% 0%;
+    opacity: 0.4;
+    filter: brightness(0.75) contrast(1.25);
+  }
+}
+
+@keyframes holoCard {
+  13%,
+  16% {
+    transform: rotateZ(0deg) rotateX(-9deg) rotateY(32deg);
+  }
+  35%,
+  38% {
+    transform: rotateZ(3deg) rotateX(12deg) rotateY(20deg);
+  }
+  55% {
+    transform: rotateZ(-3deg) rotateX(-12deg) rotateY(-27deg);
+  }
+}
+
+.container h2 {
+  font-size: 15px;
+  margin: 0;
+  color: var(--accents-6);
+}
+
+.container p {
+  /* TODO: check if contrast-y enough */
+  color: var(--accents-4);
+  width: 21ch;
+  margin-top: 7px;
+}
+
+.locked {
+  opacity: 0.15;
+  filter: grayscale(0.8);
+}
+
+.countContainer {
+  position: absolute;
+  bottom: var(--badge-bottom, 10px);
+  background: var(--accents-1);
+  padding: 4px 8px;
+  z-index: 5;
+  border-radius: 24px;
+  font-size: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--accents-5);
+}
