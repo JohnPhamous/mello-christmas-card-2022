@@ -112,6 +112,7 @@ body,
 main,
 main div {
   height: 100vh;
+  background: black;
 }
 
 main {
